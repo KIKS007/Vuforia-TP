@@ -5,11 +5,12 @@ Properties {
 	_SSAO ("", 2D) = "" {}
 }
 Subshader {
-	ZTest Always Cull Off ZWrite Off
+	ZTest Always Cull Off ZWrite Off Fog { Mode Off }
 
 CGINCLUDE
 // Common code used by several SSAO passes below
 #include "UnityCG.cginc"
+#pragma exclude_renderers gles
 struct v2f_ao {
 	float4 pos : SV_POSITION;
 	float2 uv : TEXCOORD0;
@@ -65,6 +66,7 @@ CGPROGRAM
 #pragma vertex vert_ao
 #pragma fragment frag
 #pragma target 3.0
+#pragma fragmentoption ARB_precision_hint_fastest
 
 
 half4 frag (v2f_ao i) : SV_Target
@@ -93,6 +95,7 @@ CGPROGRAM
 #pragma vertex vert_ao
 #pragma fragment frag
 #pragma target 3.0
+#pragma fragmentoption ARB_precision_hint_fastest
 
 
 half4 frag (v2f_ao i) : SV_Target
@@ -127,6 +130,7 @@ CGPROGRAM
 #pragma vertex vert_ao
 #pragma fragment frag
 #pragma target 3.0
+#pragma fragmentoption ARB_precision_hint_fastest
 
 
 half4 frag (v2f_ao i) : SV_Target
@@ -172,6 +176,7 @@ CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
 #pragma target 3.0
+#pragma fragmentoption ARB_precision_hint_fastest
 #include "UnityCG.cginc"
 
 struct v2f {
@@ -243,6 +248,7 @@ ENDCG
 CGPROGRAM
 #pragma vertex vert
 #pragma fragment frag
+#pragma fragmentoption ARB_precision_hint_fastest
 #include "UnityCG.cginc"
 
 struct v2f {
@@ -250,21 +256,17 @@ struct v2f {
 	float2 uv[2] : TEXCOORD0;
 };
 
-sampler2D _MainTex;
-half4 _MainTex_ST;
-
-sampler2D _SSAO;
-half4 _SSAO_ST;
-
 v2f vert (appdata_img v)
 {
 	v2f o;
 	o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-	o.uv[0] = UnityStereoScreenSpaceUVAdjust(MultiplyUV (UNITY_MATRIX_TEXTURE0, v.texcoord), _MainTex_ST);
-	o.uv[1] = UnityStereoScreenSpaceUVAdjust(MultiplyUV (UNITY_MATRIX_TEXTURE1, v.texcoord), _SSAO_ST);
+	o.uv[0] = MultiplyUV (UNITY_MATRIX_TEXTURE0, v.texcoord);
+	o.uv[1] = MultiplyUV (UNITY_MATRIX_TEXTURE1, v.texcoord);
 	return o;
 }
 
+sampler2D _MainTex;
+sampler2D _SSAO;
 
 half4 frag( v2f i ) : SV_Target
 {

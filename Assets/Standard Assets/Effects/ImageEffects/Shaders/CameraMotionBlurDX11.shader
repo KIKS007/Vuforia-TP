@@ -34,8 +34,6 @@
 	float4 _CameraDepthTexture_TexelSize;
 	float4 _VelTex_TexelSize;
 	
-	half4 _MainTex_ST;
-
 	float4x4 _InvViewProj;	// inverse view-projection matrix
 	float4x4 _PrevViewProj;	// previous view-projection matrix
 	float4x4 _ToPrevViewProjCombined; // combined
@@ -53,7 +51,7 @@
 	{
 		v2f o;
 		o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-		o.uv = UnityStereoScreenSpaceUVAdjust(v.texcoord.xy, _MainTex_ST);
+		o.uv = v.texcoord.xy;
 		return o;
 	}
 
@@ -185,11 +183,13 @@ Subshader {
 	// pass 0
 	Pass {
 		ZTest Always Cull Off ZWrite Off
+		Fog { Mode off }      
 
 		CGPROGRAM
 		#pragma target 5.0
 		#pragma vertex vert
 		#pragma fragment TileMax
+		#pragma fragmentoption ARB_precision_hint_fastest
 
 		ENDCG
 	}
@@ -197,11 +197,13 @@ Subshader {
 	// pass 1
 	Pass {
 		ZTest Always Cull Off ZWrite Off
+		Fog { Mode off }      
 
 		CGPROGRAM
 		#pragma target 5.0
 		#pragma vertex vert
 		#pragma fragment NeighbourMax
+		#pragma fragmentoption ARB_precision_hint_fastest
 
 		ENDCG
 	}
@@ -209,11 +211,13 @@ Subshader {
 	// pass 2
 	Pass {
 		ZTest Always Cull Off ZWrite Off
+		Fog { Mode off }      
 
 		CGPROGRAM
 		#pragma target 5.0
 		#pragma vertex vert 
 		#pragma fragment ReconstructFilterBlur
+		#pragma fragmentoption ARB_precision_hint_fastest
 
 		ENDCG
 	}
