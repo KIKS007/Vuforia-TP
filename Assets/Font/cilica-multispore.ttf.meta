@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: e01884cdee433474eb2feddd677612bd
+timeCreated: 1489761101
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Cilica
+  fontNames:
+  - Cilica
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 18a54d23f2686ba47a35e5508a230a22, type: 3}
+  - {fileID: 12800000, guid: 722dac6498d09234e86d42904cf216b3, type: 3}
+  - {fileID: 12800000, guid: 9fc86cdcf0477d747810b5426ffb774a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
