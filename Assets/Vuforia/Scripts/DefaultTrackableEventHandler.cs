@@ -68,7 +68,7 @@ namespace Vuforia
 
         private void OnTrackingFound()
         {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+            /*Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
             // Enable rendering:
@@ -83,13 +83,16 @@ namespace Vuforia
                 component.enabled = true;
             }
 
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");*/
+			foreach (Transform children in transform) {
+				children.gameObject.SetActive (true);
+			}
         }
 
 
         private void OnTrackingLost()
         {
-            Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
+            /*Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 
             // Disable rendering:
@@ -104,7 +107,10 @@ namespace Vuforia
                 component.enabled = false;
             }
 
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");*/
+			foreach (Transform children in transform) {
+				children.gameObject.SetActive (false);
+			}
         }
 
         #endregion // PRIVATE_METHODS
